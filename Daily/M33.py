@@ -77,19 +77,46 @@ def get_random_subsets(X, y, n_subsets, replacements=True, seed=42):
 
     n, m = X.shape
 
-    subset_size = n if replacements else n // n_subsets
+    subset_size = n if replacements else n // 2
     idx = np.array([np.random.choice(n, subset_size, replace=replacements) for _ in range(n_subsets)])
     print(idx)
     # convert all ndarrays to lists
     return [(X[idx][i].tolist(), y[idx][i].tolist()) for i in range(n_subsets)]
 
-X = np.array([[1, 2],
-                  [3, 4],
-                  [5, 6],
-                  [7, 8],
-                  [9, 10]])
-y = np.array([1, 2, 3, 4, 5])
-n_subsets = 3
+# X = np.array([[1, 2],
+#                   [3, 4],
+#                   [5, 6],
+#                   [7, 8],
+#                   [9, 10]])
+# y = np.array([1, 2, 3, 4, 5])
+
+X = np.array([[0, 1], [2, 3], [4, 5], [6, 7], [8, 9], [10, 11]])
+y = np.array([6, 5, 4, 3, 2, 1])
+
+n_subsets = 2
 replacements = False
 ans = get_random_subsets(X, y, n_subsets, replacements)
 print(ans)
+
+
+"""
+Test Case 1: Accepted
+Input:
+ 
+X = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]])
+y = np.array([1, 2, 3, 4, 5])
+print(get_random_subsets(X,y, 3, False, seed=42))
+Output:
+[([[3, 4], [9, 10]], [2, 5]), ([[7, 8], [3, 4]], [4, 2]), ([[3, 4], [1, 2]], [2, 1])]
+Expected:
+[[[3, 4], [9, 10]], [2, 5], [[7, 8], [3, 4]], [4, 2], [[3, 4], [1, 2]], [2, 1]]
+Test Case 2: Accepted
+Input:
+X = np.array([[1, 1], [2, 2], [3, 3], [4, 4]])
+y = np.array([10, 20, 30, 40])
+print(get_random_subsets(X, y, 1, True, seed=42))
+Output:
+[([[3, 3], [4, 4], [1, 1], [3, 3]], [30, 40, 10, 30])]
+Expected:
+[([[3, 3], [4, 4], [1, 1], [3, 3]], [30, 40, 10, 30])]
+"""
